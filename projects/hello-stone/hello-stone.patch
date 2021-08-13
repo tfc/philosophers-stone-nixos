@@ -1,0 +1,12 @@
+diff -ru hello-2.10/src/hello.c hello-stone/src/hello.c
+--- hello-2.10/src/hello.c	2014-07-19 18:53:25.000000000 +0200
++++ hello-stone/src/hello.c	2021-07-21 10:13:23.961539635 +0200
+@@ -57,7 +57,7 @@
+ #endif
+ 
+   /* Having initialized gettext, get the default message. */
+-  greeting_msg = _("Hello, world!");
++  greeting_msg = _("Hello, Philosopher's stone!");
+ 
+   /* Even exiting has subtleties.  On exit, if any writes failed, change
+      the exit status.  The /dev/full device on GNU/Linux can be used for

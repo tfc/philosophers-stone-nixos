@@ -1,0 +1,4 @@
+result
+result-*
+*.closure
+nixos.qcow2
