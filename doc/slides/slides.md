@@ -296,6 +296,57 @@ Bottom-up: How to\dots
 * integration test a running service in a VM
 * rebuild the whole thing on an air-gapped system
 
+# Integrating Nix Caches w/ Integrity Requirements
+
+```{ .plantuml
+     height=90%
+   }
+@startuml
+
+label "No reuse of public builds.\n100% self-built from sources." as sourceslabel
+
+frame "Airgapped Intranet" as gappedintranet {
+  node "Central\nNix Cache" as gcache
+
+  node "Developer\nMachine" as gvm1
+  node "Developer\nMachine" as gvm2
+  node "Developer\nMachine" as gvm3
+
+  gcache <--> gvm1
+  gcache <--> gvm2 : "Nix cache\nmechanism"
+  gcache <--> gvm3
+}
+
+frame "Intranet w/ Internet Access" as intranet {
+  node "Central\nNix Cache" as cache
+  node "Developer\nMachine" as vm1
+  node "Developer\nMachine" as vm2
+  node "Developer\nMachine" as vm3
+
+  node "Auditing\nDevOp" as devop
+
+  cache <--> vm1
+  cache <--> vm2
+  cache <--> vm3
+  cache --> devop
+
+}
+
+label "Quick & easy upgrades and toolchain\nswitches during development" as toolchainlabel
+
+cloud "NixOS.org\ncache" as nixoscache
+
+devop ..> gcache : "Closure Upload\n(only sources)"
+nixoscache --> vm1
+nixoscache --> vm2
+nixoscache --> vm3
+
+sourceslabel ~~ gcache #black
+
+toolchainlabel ~~ cache #black
+@enduml
+```
+
 # References from Demo Session
 
 C++ and Cartesian build product variants:
