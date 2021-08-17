@@ -1,3 +1,26 @@
+# Typical Demos to Show
+
+- Message Server as typical C++ project
+  - nix-shell workflow
+  - nix-build workflow
+- Message Client as typical Python Project
+  - nix-shell workflow
+  - nix-build workflow
+- GNU Hello Patching
+  - create patch from scratch
+  - show final derivation
+- Show nixpkgs integration
+  - `nix repl '<nixpkgs>'`
+  - introduce overlay.nix
+- Show how to compose a full system w/ such packages
+  - Go through modules
+  - Build & run VMs (ISOs take too long)
+  - message server/client Demo, RDP Demo
+- NixOS integration test (show & run code)
+- Demonstrate caching between machines
+- Demonstrate closure generation and transfer into offline podman image
+  - show binary, show source closures
+
 # Create a patched version of GNU hello
 
 ```sh
