@@ -10,12 +10,12 @@ final: prev:
   message-client = final.callPackage ../projects/message-client/build.nix { };
 
   # this is a nice example on how to override a dep of a dep of a dep...
-  # (although note that this C++ project is 2 years old and the lib does not
-  # depend on python by default any longer)
   message-server-nopython = prev.message-server.override {
     libpqxx = prev.libpqxx.override {
       postgresql = prev.postgresql.override {
+        gssSupport = false;
         libxml2 = prev.libxml2.override {
+          icuSupport = false;
           pythonSupport = false;
         };
       };

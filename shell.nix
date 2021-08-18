@@ -5,6 +5,7 @@ pkgs.mkShell {
   packages = with pkgs; [
     jq
     niv
+    nix-diff
     qemu
   ];
 }
