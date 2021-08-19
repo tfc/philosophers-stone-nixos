@@ -99,25 +99,25 @@ node "NixOS System" as system {
   }
 
   writer --> postgres
-  reader --> postgres
+  postgres --> reader
 
   frame "OpenSSH"
   frame "RDP Server" as rdp
 }
 
 actor actor1
-actor1 --> writer : 1300
+actor1 --> writer : tcp1300
 actor actor2
-actor2 --> reader : 5000
+actor2 --> reader : tcp5000
 actor actor3
-actor3 --> rdp : 3389
+actor3 --> rdp : tcp3389
 
 @enduml
 ```
 
 # Example System: Package View
 
-Examples on how to *package* and *configure* a custom application service
+Examples for how to *package* and *configure* a custom application service
 
 * Message Server Writer
   * C++ app
@@ -126,6 +126,9 @@ Examples on how to *package* and *configure* a custom application service
   * Python app
   * HTTP Service, listens on port 5000, prints messages
 
+\
+
+minimal demo:
 ```sh
 [stone@nixos:~]$ echo -n "hello world" | nc localhost 1300
 ok
