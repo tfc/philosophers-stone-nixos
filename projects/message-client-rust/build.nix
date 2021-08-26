@@ -1,0 +1,7 @@
+{
+  naersk
+}:
+naersk.buildPackage
+{
+  root = ./.;
+}
