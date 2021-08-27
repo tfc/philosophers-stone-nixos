@@ -1,14 +1,14 @@
 # Philosopher's Stone
 
-What is the philosopher's stone? 
+What is the philosopher's stone?
 Citing [Wikipedia](https://en.wikipedia.org/wiki/Philosopher%27s_stone):
 
-> The philosopher's stone, more properly philosophers' stone or stone of the 
-> philosophers, is a mythical alchemical substance capable of turning base 
+> The philosopher's stone, more properly philosophers' stone or stone of the
+> philosophers, is a mythical alchemical substance capable of turning base
 > metals such as mercury into gold or silver.
 
 This is very similar to what we do when we transform source code to releasable
-images for our customers, while trying to get the process as fast and 
+images for our customers, while trying to get the process as fast and
 reproducible as possible.
 
 In order to create gold, the philosopher's stone is usually mixed with other
@@ -25,7 +25,7 @@ This repository contains:
   in the `modules/` folder
 - [nixpkgs](https://github.com/nixos/nixpkgs) package database pin and an
   example package database overlay in the `nix/` folder
-- example NixOS integration test for our example packages and NixOS service 
+- example NixOS integration test for our example packages and NixOS service
   definitions in the `integration-tests/` folder
 - scripts to demonstrate automatic binary- and source-closure calculation in
   the `scripts/` folder
@@ -37,7 +37,7 @@ This repository is used to demonstrate the following scenarios:
 - Message Server as typical C++ project
     - nix-shell workflow (day-to-day incremental development)
     - nix-build workflow (consumption/deployment)
-- Message Client as typical Python Project
+- Message Client as typical Rust Project
     - nix-shell workflow
     - nix-build workflow
 - GNU Hello Patching
@@ -62,7 +62,7 @@ Some demo notes for replaying the more elaborate demo steps out at home:
 
 Create the offline closure of the image.
 Please note that `closure.sh` creates a full source- and binary archive of all
-build products, while `source-closure.sh` only archives source tarballs and 
+build products, while `source-closure.sh` only archives source tarballs and
 bootstrap tools.
 
 ```sh

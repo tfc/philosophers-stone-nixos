@@ -94,7 +94,7 @@ node "NixOS System" as system {
       writer service (C++)
     ]
     component reader [
-      Reader web interface (Python)
+      Reader web interface (Rust)
     ]
   }
 
@@ -108,7 +108,7 @@ node "NixOS System" as system {
 actor actor1
 actor1 --> writer : tcp1300
 actor actor2
-actor2 --> reader : tcp5000
+actor2 --> reader : tcp8000
 actor actor3
 actor3 --> rdp : tcp3389
 
@@ -123,8 +123,8 @@ Examples for how to *package* and *configure* a custom application service
   * C++ app
   * Listens on port 1300, waits for messages
 * Message Server Reader
-  * Python app
-  * HTTP Service, listens on port 5000, prints messages
+  * Rust app
+  * HTTP Service, listens on port 8000, prints messages
 
 \
 
@@ -132,7 +132,7 @@ minimal demo:
 ```sh
 [stone@nixos:~]$ echo -n "hello world" | nc localhost 1300
 ok
-[stone@nixos:~]$ curl localhost:5000
+[stone@nixos:~]$ curl localhost:8000
 2021-08-11: hello world
 
 ```
@@ -178,7 +178,7 @@ node "libc" as libc
 node "GNU hello" as gnuhello #Gray
 
 node "CMake" as cmake #Grey
-node "Python" as python
+node "rustc" as rustc
 
 iso --> config
 vm --> config
@@ -207,10 +207,11 @@ ssh --> libc
 reader --> libc
 writer --> libc
 psql --> libc
+rustc --> libc
 
 
 writer --> cmake
-reader --> python
+reader --> rustc
 cmake --> libc
 
 @enduml
@@ -248,7 +249,7 @@ node "libc" as libc
 node "GNU hello" as gnuhello #Gray
 
 node "CMake" as cmake #Grey
-node "Python" as python
+node "rustc" as rustc
 
 iso --> config
 vm --> config
@@ -277,10 +278,11 @@ ssh --> libc
 reader --> libc
 writer --> libc
 psql --> libc
+rustc --> libc
 
 
 writer --> cmake
-reader --> python
+reader --> rustc
 cmake --> libc
 
 @enduml
