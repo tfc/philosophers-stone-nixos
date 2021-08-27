@@ -2,4 +2,4 @@ let
   pkgs = import ../../nix/nixpkgs.nix;
 in
 
-pkgs.callPackage ./build.nix { }
+pkgs.message-client.overrideAttrs(_: { src = ./.; })

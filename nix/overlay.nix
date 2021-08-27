@@ -10,8 +10,7 @@ in
   hello-stone = final.callPackage ../projects/hello-stone { };
 
   message-server = final.callPackage ../projects/message-server/build.nix { };
-  message-client = final.callPackage ../projects/message-client/build.nix { };
-  message-client-rust = final.callPackage ../projects/message-client-rust/build.nix { inherit naersk; };
+  message-client = final.callPackage ../projects/message-client/build.nix { inherit naersk; };
 
   # uncomment this to make postgres 13 the global postgres default lib.
   # run nix-store -q --tree $(nix-build -A pkgs.message-server)
