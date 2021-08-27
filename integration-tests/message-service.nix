@@ -28,7 +28,7 @@ let
       print(mdb.succeed("journalctl -u postgresql.service"))
 
       mdb.wait_until_succeeds(
-          "${pkgs.curl}/bin/curl http://localhost:5000"
+          "${pkgs.curl}/bin/curl http://localhost:8000"
       )
 
       check_count("SELECT * FROM testcounter;", 0)
@@ -36,7 +36,7 @@ let
       check_count("SELECT * FROM testcounter;", 1)
 
       assert "hello" in mdb.succeed(
-          "${pkgs.curl}/bin/curl http://localhost:5000"
+          "${pkgs.curl}/bin/curl http://localhost:8000"
       )
 
       send_message("foobar")

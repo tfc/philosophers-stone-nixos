@@ -1,4 +1,16 @@
 {
+    "naersk": {
+        "branch": "master",
+        "description": "Build rust crates in Nix. No configuration, no code generation, no IFD. Sandbox friendly. [maintainer: @nmattia]",
+        "homepage": "",
+        "owner": "nmattia",
+        "repo": "naersk",
+        "rev": "df71f5e4babda41cd919a8684b72218e2e809fa9",
+        "sha256": "0k1pk2ixnxl6njjrgy750gm6m1nkkdsah383n3wp4ybrzacnav5h",
+        "type": "tarball",
+        "url": "https://github.com/nmattia/naersk/archive/df71f5e4babda41cd919a8684b72218e2e809fa9.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "nixpkgs": {
         "branch": "nixos-21.05",
         "description": "Nix Packages collection",
