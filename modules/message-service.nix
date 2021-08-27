@@ -36,7 +36,7 @@ in
     wantedBy = [ "multi-user.target" ];
     after = [ "mdb-server.service" ];
     serviceConfig.Restart = "always";
-    script = "exec ${pkgs.message-client-rust}/bin/message-client-rust";
+    script = "exec ${pkgs.message-client-rust}/bin/message-web-client";
     environment = authEnv;
   };
 }

@@ -2,6 +2,15 @@
 name = "message-client-rust"
 version = "0.1.0"
 edition = "2018"
+default-run = "message-web-client"
+
+[[bin]]
+name = "message-web-client"
+path = "src/message-web-client.rs"
+
+[[bin]]
+name = "message-terminal-client"
+path = "src/message-terminal-client.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
