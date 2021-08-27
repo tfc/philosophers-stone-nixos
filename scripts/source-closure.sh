@@ -15,6 +15,7 @@ fi
 evaluationPaths=$(nix-instantiate \
   --eval \
   --strict \
+  --json \
   -E "builtins.map builtins.toString (builtins.attrValues (import ./nix/sources.nix {}))" \
   | jq -r .[])
 

@@ -4,7 +4,12 @@ set -euo pipefail
 
 echo $PWD
 
-evaluationPaths=$(nix-instantiate --eval --strict -E "builtins.map builtins.toString (builtins.attrValues (import ./nix/sources.nix {}))" | jq -r .[])
+evaluationPaths=$(nix-instantiate \
+  --eval \
+  --strict \
+  --json \
+  -E "builtins.map builtins.toString (builtins.attrValues (import ./nix/sources.nix {}))" \
+  | jq -r .[])
 
 echo eval paths
 echo $evaluationPaths
