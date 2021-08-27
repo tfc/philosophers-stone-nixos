@@ -1,5 +1,5 @@
 use chrono::NaiveDate;
-use postgres::{Client, NoTls};
+use tokio_postgres::{NoTls, Error};
 use std::env;
 
 pub struct DbContext {
@@ -20,20 +20,25 @@ pub fn read_db_env() -> Result<DbContext, env::VarError> {
     Ok(db_context)
 }
 
-pub fn fetch_db(db_env: DbContext) -> String {
+pub async fn fetch_db(db_env: DbContext) -> Result<String, Error> {
     let connect = format!(
         "host={} user={} password={} dbname={}",
         db_env.host, db_env.user, db_env.pass, db_env.db
     );
-    let mut client = Client::connect(&connect, NoTls).unwrap();
-    let res = client
-        .query(
-            "SELECT content, date FROM testcounter ORDER BY id desc LIMIT 10",
-            &[],
-        )
-        .unwrap();
+    let (client, connection) =
+        tokio_postgres::connect(&connect, NoTls).await?;
 
-    let strings: Vec<String> = res
+    tokio::spawn(async move {
+        if let Err(e) = connection.await {
+            eprintln!("connection error: {}", e);
+        }
+    });
+
+    let rows = client
+        .query("SELECT content, date FROM testcounter ORDER BY id desc LIMIT 10", &[])
+        .await?;
+
+    let strings: Vec<String> = rows
         .iter()
         .map(|row| {
             let content: String = row.get("content");
@@ -43,5 +48,5 @@ pub fn fetch_db(db_env: DbContext) -> String {
         })
         .collect();
 
-    strings.join("\n")
+    Ok(strings.join("\n"))
 }

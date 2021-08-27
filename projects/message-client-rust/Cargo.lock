@@ -594,8 +594,9 @@ name = "message-client-rust"
 version = "0.1.0"
 dependencies = [
  "chrono",
- "postgres",
  "rocket",
+ "tokio",
+ "tokio-postgres",
 ]
 
 [[package]]
@@ -779,20 +780,6 @@ name = "pin-utils"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8b870d8c151b6f2fb93e84a13146138f05d02ed11c7e7c54f8826aaaf7c9f184"
-
-[[package]]
-name = "postgres"
-version = "0.19.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c7871ee579860d8183f542e387b176a25f2656b9fb5211e045397f745a68d1c2"
-dependencies = [
- "bytes",
- "fallible-iterator",
- "futures",
- "log",
- "tokio",
- "tokio-postgres",
-]
 
 [[package]]
 name = "postgres-protocol"
