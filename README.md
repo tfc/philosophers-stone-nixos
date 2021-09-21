@@ -97,5 +97,5 @@ $(nix-build -A run-rdp-server-vm)/bin/run-nixos-vm
 To connect to the desktop session on the VM via RDP from the host, run:
 
 ```sh
-nix-shell -p rdesktop --run "rdesktop -u stone -p stone localhost:3389
+nix-shell -p rdesktop --run "rdesktop -u stone -p stone localhost:3389"
 ```
