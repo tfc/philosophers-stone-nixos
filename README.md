@@ -66,7 +66,8 @@ build products, while `source-closure.sh` only archives source tarballs and
 bootstrap tools.
 
 ```sh
-$ ./scripts/closure.sh
+$ ./scripts/closure.sh         # binary closure
+$ ./scripts/source-closure.sh  # sources-only closure
 ```
 
 Run podman(/docker) image and import closure from file system
