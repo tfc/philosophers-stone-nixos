@@ -178,7 +178,7 @@ node "libc" as libc
 node "GNU hello" as gnuhello #Gray
 
 node "CMake" as cmake #Grey
-node "rustc" as rustc
+node "rustc" as rustc #Grey
 
 iso --> config
 vm --> config
