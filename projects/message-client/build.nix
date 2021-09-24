@@ -1,6 +1,7 @@
 { naersk
+, nix-gitignore
 }:
 naersk.buildPackage
 {
-  root = ./.;
+  root = nix-gitignore.gitignoreSource [] ./.;
 }
