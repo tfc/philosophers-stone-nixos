@@ -1,20 +1,9 @@
-let
-  nixpkgs = builtins.fetchTarball {
-    # update this by setting the hash in this URL to a newer commit
-    url = "https://github.com/nixos/nixpkgs/archive/5c663b24b68b209d2d8fa2e95b5eb0ba42fca75e.tar.gz";
-    # Hash obtained using `nix-prefetch-url --unpack <url>`
-    sha256 = "0zs9ar3i4z0mnkdqajfwk6qxqyclizk8l322xdpf6zniqsy92fdx";
-  };
-  pkgs = import nixpkgs { };
+{ stdenv, pandoc, haskellPackages, texlive, gnome3, pandoc-plantuml-filter,
+plantuml, ghostscript, inotify-tools }:
 
-  eisvogel = builtins.fetchTarball {
-    url = "https://github.com/Wandmalfarbe/pandoc-latex-template/archive/4909f13d58bb4c66243def1f6e01becd1820c767.tar.gz";
-    sha256 = "01vaqdf8a9bwpzzx65bsqk11h1fcqli2w9rnj4l03h0iwl14dh3x";
-  };
-in
-pkgs.stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   name = "philosophers-stone-slides";
-  nativeBuildInputs = with pkgs; [
+  nativeBuildInputs = [
     # this one downloads quickly because it's the statically compiled version
     pandoc
     # this one is slower to download because nixpkgs has no statically compiled
@@ -42,7 +31,7 @@ pkgs.stdenv.mkDerivation rec {
   # just run `watch build mydoc.md` to automatically rebuild pdf on editor save
   shellHook = ''
     watch() {
-      while ${pkgs.inotify-tools}/bin/inotifywait --exclude .swp -e modify -r .;
+      while ${inotify-tools}/bin/inotifywait --exclude .swp -e modify -r .;
         do $@;
       done;
     }

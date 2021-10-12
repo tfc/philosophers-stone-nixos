@@ -58,4 +58,6 @@ in
   }).config.system.build.vm;
 
   integration-test = import ./integration-tests/message-service.nix { inherit pkgs; };
+
+  slides = pkgs.callPackage ./doc/slides { };
 }
