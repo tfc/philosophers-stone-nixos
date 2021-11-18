@@ -1,6 +1,10 @@
+stages:
+  - generate
+  - run
+
 generate_ci:
   stage: generate
-  tags: [ native-nix ]
+  tags: [ nix ]
   script:
     - ./ci/generate.sh > generated-config.yml
   artifacts:
