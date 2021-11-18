@@ -1,0 +1,18 @@
+generate_ci:
+  stage: generate
+  tags: [ native-nix ]
+  script:
+    - ./ci/generate.sh > generated-config.yml
+  artifacts:
+    paths:
+      - generated-config.yml
+
+trigger_ci:
+  stage: run
+  needs: [ generate_ci ]
+  trigger:
+    include:
+      - artifact: generated-config.yml
+        job: generate_ci
+    strategy: depend
+
