@@ -10,7 +10,7 @@
 stdenv.mkDerivation {
   name = "message-server";
   version = "1.0";
-  src = nix-gitignore.gitignoreSource [] ./.;
+  src = nix-gitignore.gitignoreSource [ ] ./.;
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ boost libpqxx ];

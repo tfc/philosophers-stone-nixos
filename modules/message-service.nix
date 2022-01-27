@@ -2,7 +2,7 @@
 let
   authEnv = {
     MDB_HOST = "127.0.0.1";
-    MDB_DB   = "testdb";
+    MDB_DB = "testdb";
     MDB_USER = "testuser";
     MDB_PASS = "testpass";
   };

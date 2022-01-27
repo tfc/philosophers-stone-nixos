@@ -1,7 +1,7 @@
 final: prev:
 let
   sources = import ./sources.nix;
-  naersk = final.callPackage sources.naersk {};
+  naersk = final.callPackage sources.naersk { };
 in
 {
   # This is GNU hello with a patched output line.

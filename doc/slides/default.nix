@@ -1,5 +1,13 @@
-{ stdenv, pandoc, haskellPackages, texlive, gnome3, pandoc-plantuml-filter,
-plantuml, ghostscript, inotify-tools }:
+{ stdenv
+, pandoc
+, haskellPackages
+, texlive
+, gnome3
+, pandoc-plantuml-filter
+, plantuml
+, ghostscript
+, inotify-tools
+}:
 
 stdenv.mkDerivation rec {
   name = "philosophers-stone-slides";
