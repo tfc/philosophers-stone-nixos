@@ -1,11 +1,10 @@
 ---
 title: Philosopher's Stone NixOS Demo
 author: |
-  ![](cyberus-logo.pdf){width=2in}
+  ![](applicative-systems.png){width=2in}
   \
   \
   Jacek Galowicz
-date: 13.08.2021
 output:
   beamer_presentation:
     includes:
