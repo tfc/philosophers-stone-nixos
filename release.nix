@@ -2,7 +2,7 @@ let
   sources = import ./nix/sources.nix;
   pkgs = import ./nix/nixpkgs.nix;
 
-  headless-msg-server-config = { ... }: {
+  headless-msg-server-config = _: {
     imports = [
       ./modules/overlay.nix
       ./modules/iso.nix
@@ -12,7 +12,7 @@ let
     ];
   };
 
-  rdp-server-config = { ... }: {
+  rdp-server-config = _: {
     imports = [
       ./modules/overlay.nix
       ./modules/stone-base.nix
@@ -28,7 +28,7 @@ in
   run-headless-vm = (pkgs.nixos [
     headless-msg-server-config
     "${sources.nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
-    ({ pkgs, ... }: {
+    (_: {
       virtualisation.memorySize = "1G";
       virtualisation.graphics = false;
     })
@@ -43,13 +43,13 @@ in
   run-rdp-server-vm = (pkgs.nixos [
     rdp-server-config
     "${sources.nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
-    ({ pkgs, ... }: {
+    (_: {
       virtualisation.memorySize = "1G";
       virtualisation.graphics = true;
     })
   ]).vm;
 
-  integration-test = import ./integration-tests/message-service.nix { inherit pkgs; };
+  integration-test = pkgs.callPackage ./integration-tests/message-service.nix { };
 
   slides = pkgs.callPackage ./doc/slides { };
 }
