@@ -1,5 +1,4 @@
 let
-  sources = import ./nix/sources.nix;
   pkgs = import ./nix/nixpkgs.nix;
 
   headless-msg-server-config = [
@@ -22,7 +21,7 @@ in
   headless-iso = (pkgs.nixos headless-msg-server-config).isoImage;
 
   run-headless-vm = (pkgs.nixos (headless-msg-server-config ++ [
-    "${sources.nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
+    "${pkgs.path}/nixos/modules/virtualisation/qemu-vm.nix"
     (_: {
       virtualisation.memorySize = 1024 * 1024;
       virtualisation.graphics = false;
@@ -34,7 +33,7 @@ in
 
 
   run-rdp-server-vm = (pkgs.nixos (rdp-server-config ++ [
-    "${sources.nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
+    "${pkgs.path}/nixos/modules/virtualisation/qemu-vm.nix"
     (_: {
       virtualisation.memorySize = 1024 * 1024;
       virtualisation.graphics = true;
