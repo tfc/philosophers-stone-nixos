@@ -65,10 +65,12 @@ This project is a demo on how to build such images with nix/NixOS
 # Why NixOS? (1)
 
 ![Screenshot of r13y.com](./reproducibility.png)
+(Website screenshot is from 2022-03-24)
 
 # Why NixOS? (2)
 
 ![repology.org](./map_repo_size_fresh.svg)
+(Graph is from 2022-03-24)
 
 #
 
