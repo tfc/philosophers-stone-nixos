@@ -57,7 +57,7 @@
 let
   # Our input is the imported file containing the derivations to generate build
   # jobs for, e.g., release.nix.
-  input' = import (repositoryRoot + ("/${releaseNixPath}"));
+  input' = import (repositoryRoot + "/${releaseNixPath}");
 
   # Transparently handle inputs with and without arguments
   input = if builtins.isFunction input' then input' { } else input';
