@@ -5,9 +5,7 @@ let
     name = "run-mdb-service-with-webservice";
 
     nodes = {
-      mdb = _: {
-        imports = [ ../modules/message-service.nix ];
-      };
+      mdb = import ../modules/message-service.nix;
     };
 
     testScript = ''
