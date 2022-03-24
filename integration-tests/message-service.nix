@@ -9,36 +9,40 @@ let
     };
 
     testScript = ''
+      from shlex import quote
+
       def send_message(msg):
           return mdb.succeed(
               f"echo -n {msg} | ${pkgs.nmap}/bin/ncat localhost 1300"
           )
 
-      def check_count(select, nlines):
-          output = mdb.succeed(f'su -c "psql -d testdb -tAc \\"{select}\\"" postgres')
-          print(output)
-          return nlines == len(output.splitlines())
+      def sql_query(select):
+          cmd = f"psql -d testdb -tAc {quote(select)}"
+          output = mdb.succeed(f"su -c {quote(cmd)} postgres")
+          return output.splitlines()
+
+      def get_messages(where=""):
+          return sql_query(f"SELECT content FROM testcounter {where};")
 
       mdb.start()
       mdb.wait_for_unit("mdb-webservice.service")
       mdb.wait_for_unit("postgresql.service")
-      print(mdb.succeed("journalctl -u postgresql.service"))
 
       mdb.wait_until_succeeds(
           "${pkgs.curl}/bin/curl http://localhost:8000"
       )
 
-      check_count("SELECT * FROM testcounter;", 0)
+      assert 0 == len(get_messages())
       send_message("hello")
-      check_count("SELECT * FROM testcounter;", 1)
+      assert 1 == len(get_messages())
 
       assert "hello" in mdb.succeed(
           "${pkgs.curl}/bin/curl http://localhost:8000"
       )
 
       send_message("foobar")
-      check_count("SELECT * FROM testcounter;", 2)
-      check_count("SELECT * FROM testcounter WHERE content = 'foobar';", 1)
+      assert 2 == len(get_messages())
+      assert ["hello", "foobar"] == get_messages()
     '';
   };
 in
