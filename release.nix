@@ -23,39 +23,31 @@ in
 {
   pkgs = import ./nix/overlay.nix pkgs pkgs;
 
-  headless-iso = (import "${sources.nixpkgs}/nixos/lib/eval-config.nix" {
-    modules = [ headless-msg-server-config ];
-  }).config.system.build.isoImage;
+  headless-iso = (pkgs.nixos headless-msg-server-config).isoImage;
 
-  run-headless-vm = (import "${sources.nixpkgs}/nixos/lib/eval-config.nix" {
-    modules = [
-      headless-msg-server-config
-      "${sources.nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
-      ({ pkgs, ... }: {
-        virtualisation.memorySize = "1G";
-        virtualisation.graphics = false;
-      })
-    ];
-  }).config.system.build.vm;
+  run-headless-vm = (pkgs.nixos [
+    headless-msg-server-config
+    "${sources.nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
+    ({ pkgs, ... }: {
+      virtualisation.memorySize = "1G";
+      virtualisation.graphics = false;
+    })
+  ]).vm;
 
-  rdp-server-iso = (import "${sources.nixpkgs}/nixos/lib/eval-config.nix" {
-    modules = [
-      rdp-server-config
-      ./modules/iso.nix
-    ];
-  }).config.system.build.isoImage;
+  rdp-server-iso = (pkgs.nixos [
+    rdp-server-config
+    ./modules/iso.nix
+  ]).isoImage;
 
 
-  run-rdp-server-vm = (import "${sources.nixpkgs}/nixos/lib/eval-config.nix" {
-    modules = [
-      rdp-server-config
-      "${sources.nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
-      ({ pkgs, ... }: {
-        virtualisation.memorySize = "1G";
-        virtualisation.graphics = true;
-      })
-    ];
-  }).config.system.build.vm;
+  run-rdp-server-vm = (pkgs.nixos [
+    rdp-server-config
+    "${sources.nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
+    ({ pkgs, ... }: {
+      virtualisation.memorySize = "1G";
+      virtualisation.graphics = true;
+    })
+  ]).vm;
 
   integration-test = import ./integration-tests/message-service.nix { inherit pkgs; };
 
