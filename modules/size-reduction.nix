@@ -16,4 +16,24 @@
   boot.loader.grub.splashImage = null;
 
   security.polkit.enable = lib.mkForce false;
+
+  boot.kernelParams = [ "boot.panic_on_fail" ];
+
+  # Don't allow emergency mode, because we don't have a console.
+  systemd.enableEmergencyMode = false;
+
+  # We have no persistent file systems.
+  boot.initrd.checkJournalingFS = false;
+
+  # Additional minimization.
+  environment.defaultPackages = [ ];
+  boot.enableContainers = false;
+  security.sudo.enable = false;
+  xdg.autostart.enable = false;
+  xdg.icons.enable = false;
+  xdg.menus.enable = false;
+  xdg.mime.enable = false;
+  xdg.sounds.enable = false;
+  programs.command-not-found.enable = false;
+  system.fsPackages = lib.mkForce [ ];
 }
