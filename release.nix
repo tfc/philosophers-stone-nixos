@@ -23,7 +23,7 @@ in
   run-headless-vm = (pkgs.nixos (headless-msg-server-config ++ [
     "${pkgs.path}/nixos/modules/virtualisation/qemu-vm.nix"
     (_: {
-      virtualisation.memorySize = 1024 * 1024;
+      virtualisation.memorySize = 1024;
       virtualisation.graphics = false;
     })
   ])).vm;
@@ -35,7 +35,7 @@ in
   run-rdp-server-vm = (pkgs.nixos (rdp-server-config ++ [
     "${pkgs.path}/nixos/modules/virtualisation/qemu-vm.nix"
     (_: {
-      virtualisation.memorySize = 1024 * 1024;
+      virtualisation.memorySize = 1024;
       virtualisation.graphics = true;
     })
   ])).vm;
