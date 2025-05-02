@@ -4,13 +4,19 @@
 , boost
 , cmake
 , gtest
-, nix-gitignore
 , static ? false
 }:
 stdenv.mkDerivation {
   name = "message-server";
   version = "1.0";
-  src = nix-gitignore.gitignoreSource [ ] ./.;
+  src = lib.fileset.toSource {
+    root = ./.;
+    fileset = lib.fileset.unions [
+      ./src
+      ./test
+      ./CMakeLists.txt
+    ];
+  };
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ boost libpqxx ];
@@ -22,7 +28,6 @@ stdenv.mkDerivation {
   ];
 
   makeTarget = "message-server";
-  enableParallelBuilding = true;
 
   doCheck = true;
   checkTarget = "test";
