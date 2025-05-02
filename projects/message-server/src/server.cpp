@@ -25,8 +25,8 @@ public:
       });
   }
 
-  tcp_connection(boost::asio::io_service& io_service, MessageDb &db)
-    : socket_(io_service), db_{db}
+  tcp_connection(boost::asio::io_context &io_context, MessageDb &db)
+    : socket_(io_context), db_{db}
   { }
 
 private:
@@ -55,8 +55,9 @@ private:
 class tcp_server
 {
 public:
-  tcp_server(boost::asio::io_service& io_service, MessageDb mdb)
-    : acceptor_(io_service, tcp::endpoint(tcp::v4(), 1300)),
+  tcp_server(boost::asio::io_context &io_context, MessageDb mdb)
+    : io_context{io_context},
+      acceptor_(io_context, tcp::endpoint(tcp::v4(), 1300)),
       db_{std::move(mdb)}
   {
     start_accept();
@@ -65,17 +66,18 @@ public:
 private:
   void start_accept()
   {
-    auto new_connection{std::make_shared<tcp_connection>(acceptor_.get_io_service(), db_)};
+    auto new_connection{std::make_shared<tcp_connection>(io_context, db_)};
 
     acceptor_.async_accept(new_connection->socket(),
       [this, new_connection] (const boost::system::error_code& error) {
         if (!error) {
           new_connection->start();
-          start_accept();
         }
+        start_accept();
       });
   }
 
+  boost::asio::io_context &io_context;
   tcp::acceptor acceptor_;
   MessageDb     db_;
 };
@@ -105,9 +107,9 @@ int main()
   }
 
   try {
-    boost::asio::io_service io_service;
-    tcp_server server{io_service, {*db_name, *db_user, *db_pass, *db_host}};
-    io_service.run();
+    boost::asio::io_context io_context;
+    tcp_server server{io_context, {*db_name, *db_user, *db_pass, *db_host}};
+    io_context.run();
   } catch (const std::exception& e) {
     std::cerr << e.what() << std::endl;
   }
