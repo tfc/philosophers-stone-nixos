@@ -19,6 +19,9 @@ in
         CREATE ROLE ${authEnv.MDB_USER} WITH LOGIN PASSWORD '${authEnv.MDB_PASS}';
         CREATE DATABASE ${authEnv.MDB_DB};
         GRANT ALL PRIVILEGES ON DATABASE ${authEnv.MDB_DB} TO ${authEnv.MDB_USER};
+        \c ${authEnv.MDB_DB}
+        SET search_path TO public;
+        GRANT CREATE ON SCHEMA public TO ${authEnv.MDB_USER};
       '';
     };
   };

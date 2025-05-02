@@ -3,7 +3,11 @@
   name = "run-mdb-service-with-webservice";
 
   nodes = {
-    mdb = import ../nix/modules/application/message-service.nix;
+    mdb = {
+      imports = [
+        ../nix/modules/application/message-service.nix
+      ];
+    };
   };
 
   testScript = ''
@@ -23,7 +27,8 @@
         return sql_query(f"SELECT content FROM testcounter {where};")
 
     mdb.start()
-    # TODO: networking
+    mdb.systemctl("start network-online.target")
+    mdb.wait_for_unit("network-online.target")
     mdb.wait_for_unit("mdb-webservice.service")
     mdb.wait_for_unit("postgresql.service")
 
