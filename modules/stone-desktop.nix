@@ -6,5 +6,5 @@
 
   services.xrdp.enable = true;
   services.xrdp.defaultWindowManager =
-    "${pkgs.xfce4-14.xfce4-session}/bin/xfce4-session";
+    "${pkgs.xfce.xfce4-session}/bin/xfce4-session";
 }

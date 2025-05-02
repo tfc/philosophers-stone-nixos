@@ -8,9 +8,6 @@
     "${modulesPath}/profiles/minimal.nix"
   ];
 
-  # provided by modules/config/no-x-libs.nix
-  environment.noXlibs = true;
-
   # inspired by modules/profiles/headless.nix
   boot.vesa = false;
   boot.loader.grub.splashImage = null;

@@ -1,4 +1,5 @@
+*.closure
+.vscode
+nixos.qcow2
 result
 result-*
-*.closure
-nixos.qcow2
