@@ -2,7 +2,7 @@
 
 {
   imports = [
-    "${modulesPath}/installer/cd-dvd/iso-image.nix"
+    (modulesPath + "/installer/cd-dvd/iso-image.nix")
   ];
 
   isoImage.isoName = "philosophers-stone-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";

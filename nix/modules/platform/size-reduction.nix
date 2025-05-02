@@ -5,7 +5,7 @@
 {
   imports = [
     # removes documentation etc.
-    "${modulesPath}/profiles/minimal.nix"
+    (modulesPath + "/profiles/minimal.nix")
   ];
 
   # inspired by modules/profiles/headless.nix

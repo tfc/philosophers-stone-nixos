@@ -1,3 +1,6 @@
+# This module adds some standard tools for playing around in a demo
+# and also disables security measures for demo reasons.
+# a real product wouldn't disable the security things, of course.
 { lib, pkgs, ... }:
 
 let
@@ -49,8 +52,12 @@ in
 
   services.openssh = {
     enable = true;
-    permitRootLogin = "yes";
+    settings = {
+      PermitRootLogin = "yes";
+      PermitEmptyPasswords = "yes";
+    };
   };
+  security.pam.services.sshd.allowNullPassword = true;
 
   networking.firewall.enable = false;
   networking.useDHCP = true;
